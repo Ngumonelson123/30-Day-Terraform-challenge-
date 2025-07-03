@@ -1,0 +1,23 @@
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Test step
+        env:
+          # Correct syntax for accessing secrets
+          TEST_SECRET: ${{ secrets.JULIETWANJIKU1 }}
+        run: |
+          if [ -n "$TEST_SECRET" ]; then
+            echo "Secret is available"
+          else
+            echo "Secret is not set"
+          fi
+        # Alternative conditional syntax using if:
+        if: ${{ secrets.JULIETWANJIKU1 != '' }}
